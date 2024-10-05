@@ -1,54 +1,54 @@
+//ALL VARIABLE ARE PASSED BY REFERNCES AS ASKED BY THE FACULTY
+
 #include <stdio.h>
 
 #define MAX 10
 
-int arr[MAX];
-int *top = &arr[0] - 1;
-
-int is_full(int *top){
-    return *top == MAX - 1;
+int isfull(int top) {
+    return top == MAX - 1;
 }
 
-int is_empty(int *top){
-    return *top == -1;
+int isempty(int top) {
+    return top == -1;
 }
-
-void push(int *top, int *arr, int item){
-    if (!is_full(top)){
-        arr[++(*top)] = item;
-    }else{
-        printf("Stack is full\n");
+// PUSH FUNCTION
+void push(int (*arr)[MAX], int *top, int item) {
+    if (!isfull(*top)) {
+        (*arr)[(*top)++] = item;
+        printf("Item %d added successfully!\n", item);
+    } else {
+        printf("STACK IS FULL / OVERFLOW\n");
     }
 }
-
-void pop(int *top, int *arr){
-    if (!is_empty(top)){
-        int item = arr[(*top)--];
-        printf("Popped item is %d\n", item);
-    }else{
-        printf("Stack is empty\n");
+//POP FUNCTION
+void pop(int (*arr)[MAX], int *top) {
+    if (!isempty(*top)) {
+        printf("Item %d has been removed\n", (*arr)[--(*top)]);
+    } else {
+        printf("STACK IS EMPTY / UNDERFLOW\n");
     }
 }
-
-void display(int *top, int *arr){
-    for (int i=0;i<=*top;i++){
-        printf("%d ", arr[i]);
+// DISPLAY FUNCTION
+void display(int (*arr)[MAX], int top) {
+    for (int i = 0; i < top; i++) {
+        printf("%d ", (*arr)[i]);
     }
     printf("\n");
 }
 
-int main(){
-    push(&top, arr, 10);
-    push(&top, arr, 20);
-    push(&top, arr, 10);
-    push(&top, arr, 20);
-    push(&top, arr, 10);
-    push(&top, arr, 20);
-    push(&top, arr, 10);
-    push(&top, arr, 20);
-    
-    pop(&top, arr);
-    display(&top, arr);
+int main() {
+    int arr[MAX];
+    int top = -1;
+
+    push(&arr, &top, 1);
+    push(&arr, &top, 2);
+    push(&arr, &top, 3);
+    push(&arr, &top, 4);
+
+    display(&arr, top + 1);
+
+    pop(&arr, &top);
+    display(&arr, top + 1);
 
     return 0;
 }
