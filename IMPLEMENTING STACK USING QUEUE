@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 10
+
+int isfull(int rear) {
+    return rear == MAX - 1; 
+}
+
+int isempty(int front, int rear) {
+    return front > rear; 
+}
+
+void insert(int s[], int *front, int *rear) {
+    if (isfull(*rear)) {
+        printf("OVERFLOW !!\n");
+    } else {
+        int item;
+        printf("Enter the item to be inserted: ");
+        scanf("%d", &item);
+        s[++(*rear)] = item; 
+        printf("Item added to stack\n");
+    }
+}
+
+void delete(int s[], int *front, int *rear) {
+    if (isempty(*front, *rear)) {
+        printf("UNDERFLOW !!\n");
+    } else {
+        printf("Deleted item is: %d\n", s[(*rear)--]); 
+    }
+}
+
+void display(int s[], int front, int rear) {
+    if (isempty(front, rear)) {
+        printf("Stack is empty\n");
+        return;
+    }
+    printf("STACK:\n");
+    for (int i = rear; i >= front; i--) {
+        printf("%d\n", s[i]);
+    }
+}
+
+int main() {
+    int s[MAX]; 
+    int front = 0, rear = -1;
+    int choice;
+
+    while (1) {
+        printf("STACK MENU\n");
+        printf("1. INSERT\n");
+        printf("2. DELETE\n");
+        printf("3. DISPLAY\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                insert(s, &front, &rear);
+                break;
+            case 2:
+                delete(s, &front, &rear);
+                break;
+            case 3:
+                display(s, front, rear);
+                break;
+            default:
+                printf("Invalid input\n");
+                break;     
+        }
+    }
+    return 0; 
+}
+    
